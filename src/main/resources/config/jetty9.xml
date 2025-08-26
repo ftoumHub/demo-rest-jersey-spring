@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <New id="demoDS" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg></Arg>
+     <Arg>jdbc/restDemoDB</Arg>
+     <Arg>
+        <New class="org.postgresql.ds.PGSimpleDataSource">
+           <Set name="ServerName">localhost</Set>
+           <Set name="PortNumber">5432</Set>
+           <Set name="DatabaseName">demo_rest_jersey</Set>
+           <Set name="User">demo_rest_jersey</Set>
+           <Set name="Password">demo_rest_jersey</Set>
+        </New>
+     </Arg>
+    </New>
+</Configure>
