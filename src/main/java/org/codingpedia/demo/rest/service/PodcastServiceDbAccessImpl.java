@@ -183,7 +183,6 @@ public class PodcastServiceDbAccessImpl implements PodcastService {
 		}
 		copyPartialProperties(verifyPodcastExistenceById, podcast);		
 		podcastDao.updatePodcast(new PodcastEntity(verifyPodcastExistenceById));
-		
 	}
 
 	private void copyPartialProperties(Podcast verifyPodcastExistenceById, Podcast podcast) {
