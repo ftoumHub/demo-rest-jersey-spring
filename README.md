@@ -9,15 +9,13 @@
 ## Install and run the project 
 1. download/clone the project 
 2. prepare the database
-  * import in MySQL the self-contained file that comes with the project - [demo-rest-jersey-spring / src / main / resources / input_data / DumpRESTdemoDB.sql](https://github.com/ftoumHub/demo-rest-jersey-spring/blob/master/src/main/resources/input_data/DumpRESTdemoDB.sql)
+  * import in PostgreSQL the self-contained file that comes with the project - [demo-rest-jersey-spring/src/main/resources/input_data/DumpRESTdemoDB.sql](https://github.com/ftoumHub/demo-rest-jersey-spring/blob/master/src/main/resources/input_data/DumpRESTdemoDB.sql)
   * username/password - `rest_demo`/`rest_demo`
 3. change to the root folder of the project and excute the following maven command 
   * `mvn clean install jetty:run  -Djetty.port=8888 -DskipTests=true`
   * now the REST api is up and running with Jetty on `localhost:8888` 
   
 > **Note:** you could run a similar configuration from Eclipse if you have the m2e plugin installed - see pic below
-
-> **Note:** after you `mvn install` the application, you can deploy the generated __.war__ file in any web container like Tomcat for example. 
 
 ## Testing the project 
 
@@ -39,9 +37,3 @@ OR
 
 ## Go to blog post
 [Tutorial – REST API design and implementation in Java with Jersey and Spring](http://www.codingpedia.org/ama/tutorial-rest-api-design-and-implementation-in-java-with-jersey-and-spring/) - complete explanation of this implementation. 
-## Changelog
-
-## License
-
-[MIT](https://github.com/Codingpedia/demo-rest-jersey-spring/blob/master/LICENSE) &copy; [Codingpedia.org](http://www.codingpedia.org)
-
