@@ -11,11 +11,14 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 @Provider
 public class LoggingResponseFilter implements ContainerResponseFilter {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoggingResponseFilter.class);
 
+	@WithSpan
 	public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
 		String method = requestContext.getMethod();
 

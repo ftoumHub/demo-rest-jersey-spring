@@ -26,6 +26,7 @@
 	<logger name="org.hibernate.SQL" level="DEBUG"/>
 	<!--logger name="org.hibernate.type.descriptor.sql" level="TRACE"/-->
 	<logger name="org.hibernate.engine.transaction.internal.jdbc.JdbcTransaction" level="DEBUG"/>
+	<logger name="org.hibernate.loader.entity" level="DEBUG"/>
 
 	<!-- c3p0 -->
 	<logger name="com.mchange.v2.c3p0" level="INFO"/>

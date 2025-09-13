@@ -2,7 +2,6 @@ package org.codingpedia.demo.rest.resource.podcast;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -22,7 +21,8 @@ import org.codingpedia.demo.rest.errorhandling.AppException;
 import org.codingpedia.demo.rest.service.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -122,6 +122,7 @@ public class PodcastsResource {
 	@GET
 	//@Compress //can be used only if you want to SELECTIVELY enable compression at the method level. By using the EncodingFilter everything is compressed now. 
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@WithSpan
 	public List<Podcast> getPodcasts(
 			@QueryParam("orderByInsertionDate") String orderByInsertionDate,
 			@QueryParam("numberDaysToLookBack") Integer numberDaysToLookBack)

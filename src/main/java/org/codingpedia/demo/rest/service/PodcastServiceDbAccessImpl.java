@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 public class PodcastServiceDbAccessImpl implements PodcastService {
 
 	@Autowired
@@ -63,6 +65,7 @@ public class PodcastServiceDbAccessImpl implements PodcastService {
 	
 	 // ******************** Read related methods implementation **********************
 	//@Transactional
+	@WithSpan
 	public List<Podcast> getPodcasts(String orderByInsertionDate, Integer numberDaysToLookBack) throws AppException {
 		
 		//verify optional parameter numberDaysToLookBack first 
@@ -79,6 +82,7 @@ public class PodcastServiceDbAccessImpl implements PodcastService {
 		return getPodcastsFromEntities(podcasts);
 	}
 
+	@WithSpan
 	private boolean isOrderByInsertionDateParameterValid(String orderByInsertionDate) {
 		return orderByInsertionDate!=null 
 				&& !("ASC".equalsIgnoreCase(orderByInsertionDate) || "DESC".equalsIgnoreCase(orderByInsertionDate));
@@ -95,8 +99,9 @@ public class PodcastServiceDbAccessImpl implements PodcastService {
 		}
 		
 		return new Podcast(podcastDao.getPodcastById(id));
-	}	
+	}
 
+	@WithSpan
 	private List<Podcast> getPodcastsFromEntities(List<PodcastEntity> podcastEntities) {
 		List<Podcast> response = new ArrayList<Podcast>();
 		for(PodcastEntity podcastEntity : podcastEntities){
@@ -142,6 +147,7 @@ public class PodcastServiceDbAccessImpl implements PodcastService {
 	 * @param podcast
 	 * @return
 	 */
+	@WithSpan
 	private boolean isFullUpdate(Podcast podcast) {
 		return podcast.getId() == null
 				|| podcast.getFeed() == null
@@ -185,6 +191,7 @@ public class PodcastServiceDbAccessImpl implements PodcastService {
 		podcastDao.updatePodcast(new PodcastEntity(verifyPodcastExistenceById));
 	}
 
+	@WithSpan
 	private void copyPartialProperties(Podcast verifyPodcastExistenceById, Podcast podcast) {
 		
 		BeanUtilsBean notNull=new NullAwareBeanUtilsBean();

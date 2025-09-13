@@ -1,28 +1,32 @@
-# Lancer docker
+# Développement
 
 Dans WSL, naviguer vers le répertoire :
 
-```shell
+```sh
 cd /mnt/c/dev/swm/demo-rest-jersey-spring/otel
 
 # installer l'agent java opentelemetry
 wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
 ```
 
-```shell
-cd /mnt/c/dev/swm/demo-rest-jersey-spring
-
-docker-compose up
+```sh
+# Démarrer la base de données postgresql
+sudo docker-compose up postgres
 ```
 
 # Lancer l'appli web
 
 ```sh
-# si besoin
 sdk use java 8.0.265-open
 mvn clean install verify -Djetty.port=8888
 
 mvn jetty:run  -Djetty.port=8888 -DskipTests=true
+```
+
+# Lancer l'appli web avec la stack lgtm
+
+```sh
+sudo ./mvn-otel.sh
 ```
 
 # Appel de l'api

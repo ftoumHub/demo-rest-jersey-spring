@@ -15,9 +15,7 @@ import org.codingpedia.demo.rest.dao.PodcastEntity;
 import org.codingpedia.demo.rest.helpers.DateISO8601Adapter;
 
 /**
- * Podcast resource placeholder for json/xml representation 
- * 
- * @author ama
+ * Podcast resource placeholder for json/xml representation
  *
  */
 @SuppressWarnings("restriction")
@@ -66,14 +64,14 @@ public class Podcast implements Serializable {
 		}
 	}
 	
-	public Podcast(String title, String linkOnPodcastpedia, String feed,
-			String description) {
-		
+	public Podcast(String title,
+				   String linkOnPodcastpedia,
+				   String feed,
+				   String description) {
 		this.title = title;
 		this.linkOnPodcastpedia = linkOnPodcastpedia;
 		this.feed = feed;
 		this.description = description;
-		
 	}
 	
 	public Podcast(){}

@@ -3,19 +3,17 @@
 ## Prerequisites:
 * PostgreSQL 14 
 * IDE 
-* JDK 1.7 (if you want to use Jetty 9 with the jetty-maven-plugin from project)
+* JDK 8
 * Maven 3.*
 
 ## Install and run the project 
 1. download/clone the project 
-2. prepare the database
+2. run docker-compose up postgres
+  * connect to the database (demo_rest_jersey/demo_rest_jersey)
   * import in PostgreSQL the self-contained file that comes with the project - [demo-rest-jersey-spring/src/main/resources/input_data/DumpRESTdemoDB.sql](https://github.com/ftoumHub/demo-rest-jersey-spring/blob/master/src/main/resources/input_data/DumpRESTdemoDB.sql)
-  * username/password - `rest_demo`/`rest_demo`
-3. change to the root folder of the project and excute the following maven command 
+3. change to the root folder of the project and execute the following maven command 
   * `mvn clean install jetty:run  -Djetty.port=8888 -DskipTests=true`
-  * now the REST api is up and running with Jetty on `localhost:8888` 
-  
-> **Note:** you could run a similar configuration from Eclipse if you have the m2e plugin installed - see pic below
+  * now the REST api is up and running with Jetty on `localhost:8888`
 
 ## Testing the project 
 
@@ -26,14 +24,25 @@ Run the following maven command on the console in the root directory of the proj
 mvn clean install verify -Djetty.port=8888
 ```
 
-OR
-  
-  the same in Eclipse 
-![Eclipse run configuration](http://www.codingpedia.org/wp-content/uploads/2014/01/run-integration-tests-eclipse.png "Run configuration in Eclipse")
-### SoapUI (recommended)
-- [download and install SoapUI](http://sourceforge.net/projects/soapui/files/)
-- import the REST project in SoapUI - [demo-rest-jersey-spring / src / main / resources / soapui / Test-Demo-REST-Jersey-with-Spring-soapui-project.xml](https://github.com/Codingpedia/demo-rest-jersey-spring/blob/master/src/main/resources/soapui/Test-Demo-REST-Jersey-with-Spring-soapui-project.xml)
-- check out our [How to test REST API with SoapUI](http://youtu.be/XV7WW0bDy9c) video tutorial on YouTube
 
 ## Go to blog post
 [Tutorial – REST API design and implementation in Java with Jersey and Spring](http://www.codingpedia.org/ama/tutorial-rest-api-design-and-implementation-in-java-with-jersey-and-spring/) - complete explanation of this implementation. 
+
+## OTEL-LGTM
+
+Thanks to grafana blog, we can launch a complete observability stack :
+https://grafana.com/blog/2025/07/08/observability-in-under-5-seconds-reflecting-on-a-year-of-grafana/otel-lgtm/
+
+run the mvn-otel.sh script to startup the observability stack.
+
+## Zero-code instrumentation
+
+### Configuring auto-instrumentation
+
+https://opentelemetry.io/docs/zero-code/java/agent/getting-started/
+
+### Annotations
+
+https://opentelemetry.io/docs/zero-code/java/agent/annotations/
+
+### Direct Projections instead of JPA Entities to Domain conversion

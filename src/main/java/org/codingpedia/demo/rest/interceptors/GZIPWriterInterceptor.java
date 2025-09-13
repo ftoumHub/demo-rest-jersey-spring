@@ -10,9 +10,9 @@ import javax.ws.rs.ext.Provider;
 import javax.ws.rs.ext.WriterInterceptor;
 import javax.ws.rs.ext.WriterInterceptorContext;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 /**
- * 
  * The jersey framework has a built-in functionality to easily enable content encoding.
  * The functionality can be activated by the following code line <code>EncodingFilter.enableFor(ResourceConfig rc, GZipEncoder.class)</code>
  * 
@@ -21,7 +21,8 @@ import javax.ws.rs.ext.WriterInterceptorContext;
 @Provider
 @Compress
 public class GZIPWriterInterceptor implements WriterInterceptor {
-	 
+
+    @WithSpan
     @Override
     public void aroundWriteTo(WriterInterceptorContext context)
                     throws IOException, WebApplicationException {

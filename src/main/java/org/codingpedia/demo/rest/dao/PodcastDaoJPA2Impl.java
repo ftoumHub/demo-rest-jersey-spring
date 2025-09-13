@@ -1,7 +1,5 @@
 package org.codingpedia.demo.rest.dao;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,11 +13,15 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
+
 public class PodcastDaoJPA2Impl implements PodcastDao {
 
 	@PersistenceContext(unitName="demoRestPersistence")
 	private EntityManager entityManager;
-	
+
+	@WithSpan
 	public List<PodcastEntity> getPodcasts(String orderByInsertionDate) {
 		String sqlString = null;
 		if(orderByInsertionDate != null){
@@ -48,7 +50,6 @@ public class PodcastDaoJPA2Impl implements PodcastDao {
 	}
 	
 	public PodcastEntity getPodcastById(Long id) {
-		
 		try {
 			String qlString = "SELECT p FROM PodcastEntity p WHERE p.id = ?1";
 			TypedQuery<PodcastEntity> query = entityManager.createQuery(qlString, PodcastEntity.class);		
@@ -61,7 +62,6 @@ public class PodcastDaoJPA2Impl implements PodcastDao {
 	}
 	
 	public PodcastEntity getPodcastByFeed(String feed) {
-		
 		try {
 			String qlString = "SELECT p FROM PodcastEntity p WHERE p.feed = ?1";
 			TypedQuery<PodcastEntity> query = entityManager.createQuery(qlString, PodcastEntity.class);		
@@ -75,14 +75,11 @@ public class PodcastDaoJPA2Impl implements PodcastDao {
 	
 
 	public void deletePodcastById(Long id) {
-		
 		PodcastEntity podcast = entityManager.find(PodcastEntity.class, id);
 		entityManager.remove(podcast);
-		
 	}
 
 	public Long createPodcast(PodcastEntity podcast) {
-		
 		podcast.setInsertionDate(new Date());
 		entityManager.merge(podcast);
 		entityManager.flush();//force insert to receive the id of the podcast
@@ -99,5 +96,4 @@ public class PodcastDaoJPA2Impl implements PodcastDao {
 		Query query = entityManager.createNativeQuery("TRUNCATE TABLE podcasts");		
 		query.executeUpdate();
 	}
-
 }
