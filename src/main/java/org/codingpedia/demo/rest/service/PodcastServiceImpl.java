@@ -1,7 +1,6 @@
 package org.codingpedia.demo.rest.service;
 
 import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +15,18 @@ import org.codingpedia.demo.rest.filters.AppConstants;
 import org.codingpedia.demo.rest.helpers.NullAwareBeanUtilsBean;
 import org.codingpedia.demo.rest.resource.podcast.Podcast;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 
-public class PodcastServiceDbAccessImpl implements PodcastService {
+public class PodcastServiceImpl implements PodcastService {
 
-	@Autowired
 	PodcastDao podcastDao;
-		
+
+	public PodcastServiceImpl(PodcastDao podcastDao) {
+		this.podcastDao = podcastDao;
+	}
+
 	/********************* Create related methods implementation ***********************/
 	@Transactional
 	//@Transactional(readOnly = true)
@@ -210,10 +211,6 @@ public class PodcastServiceDbAccessImpl implements PodcastService {
 	@Override
 	public void generateCustomReasonPhraseException() throws CustomReasonPhraseException {		
 		throw new CustomReasonPhraseException(4000, "message attached to the Custom Reason Phrase Exception");		
-	}
-
-	public void setPodcastDao(PodcastDao podcastDao) {
-		this.podcastDao = podcastDao;
 	}
 		
 }

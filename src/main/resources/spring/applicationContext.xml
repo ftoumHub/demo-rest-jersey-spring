@@ -42,7 +42,7 @@
     </bean>
     	
 	<bean id="podcastDao"       class="org.codingpedia.demo.rest.dao.PodcastDaoJPA2Impl"/>
-    <bean id="podcastService"   class="org.codingpedia.demo.rest.service.PodcastServiceDbAccessImpl" />
+    <bean id="podcastService"   class="org.codingpedia.demo.rest.service.PodcastServiceImpl" />
     <bean id="podcastsResource" class="org.codingpedia.demo.rest.resource.podcast.PodcastsResource" />
 
     <bean id="versionService"   class="org.codingpedia.demo.rest.resource.manifest.ManifestService" />

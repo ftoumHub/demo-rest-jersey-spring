@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PodcastServiceDbAccessImplTest {
+public class PodcastServiceImplTest {
 
 	private static final Long CREATED_PODCAST_RESOURCE_ID = Long.valueOf(1);
 	private static final String SOME_FEED = "some_feed";
@@ -27,15 +27,14 @@ public class PodcastServiceDbAccessImplTest {
 	@Rule
 	public ExpectedException exception = ExpectedException.none();	
 
-	PodcastServiceDbAccessImpl sut;//system under test
+	PodcastServiceImpl sut;//system under test
 	
 	@Mock
 	PodcastDao podcastDao;
 	
 	@Before
 	public void setUp() throws Exception {		
-		sut = new PodcastServiceDbAccessImpl();
-		sut.setPodcastDao(podcastDao);
+		sut = new PodcastServiceImpl(podcastDao);
 	}
 
 	@Test

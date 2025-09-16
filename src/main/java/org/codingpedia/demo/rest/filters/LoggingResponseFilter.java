@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 
-@Provider
+//@Provider
 public class LoggingResponseFilter implements ContainerResponseFilter {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoggingResponseFilter.class);

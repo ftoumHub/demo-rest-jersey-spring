@@ -42,7 +42,7 @@
     	<property name="podcastService" ref="podcastService"/>
     </bean>
     
-    <bean id="podcastService" class="org.codingpedia.demo.rest.service.PodcastServiceDbAccessImpl" >
+    <bean id="podcastService" class="org.codingpedia.demo.rest.service.PodcastServiceImpl" >
     	<property name="podcastDao" ref="podcastDao"/>
     </bean>    
     
