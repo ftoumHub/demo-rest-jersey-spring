@@ -31,6 +31,7 @@ export OTEL_TRACES_SAMPLER="traceidratio"
 export OTEL_TRACES_SAMPLER_ARG="1.0"
 export OTEL_EXPORTER_OTLP_COMPRESSION="gzip"
 export OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
+export OTEL_INSTRUMENTATION_METHODS_INCLUDE="javax.persistence.EntityManager[createQuery]"
 
 export JAVA_HOME=/home/ftoum/.sdkman/candidates/java/8.0.265-open
 export PATH=$JAVA_HOME/bin:$PATH

@@ -34,7 +34,8 @@ public class PodcastServiceImplTest {
 	
 	@Before
 	public void setUp() throws Exception {		
-		sut = new PodcastServiceImpl(podcastDao);
+		sut = new PodcastServiceImpl();
+		sut.setPodcastDao(podcastDao);
 	}
 
 	@Test
@@ -62,7 +63,6 @@ public class PodcastServiceImplTest {
 
 	@Test(expected=AppException.class)	
 	public void testCreatePodcast_error() throws AppException {
-		
 		PodcastEntity existingPodcast = new PodcastEntity();
 		when(podcastDao.getPodcastByFeed(EXISTING_FEED)).thenReturn(existingPodcast);			
 		
@@ -70,35 +70,28 @@ public class PodcastServiceImplTest {
 		podcast.setFeed(EXISTING_FEED);
 		podcast.setTitle(SOME_TITLE);
 		sut.createPodcast(podcast);
-
 	}
 	
 	@Test	
 	public void testCreatePodcast_validation_missingFeed() throws AppException {
-		
 		exception.expect(AppException.class);
 		exception.expectMessage("Provided data not sufficient for insertion");
 						
 		sut.createPodcast(new Podcast());
-
 	}		
 	
 	@Test	
 	public void testCreatePodcast_validation_missingTitle() throws AppException {
-		
 		exception.expect(AppException.class);
 		exception.expectMessage("Provided data not sufficient for insertion");
 						
 		Podcast podcast = new Podcast();
 		podcast.setFeed(EXISTING_FEED);
 		sut.createPodcast(podcast);
-
-	}	
-	
+	}
 
 	@Test
 	public void testUpdatePartiallyPodcast_successful() throws AppException {
-		
 		PodcastEntity podcastEntity = new PodcastEntity();
 		podcastEntity.setId(SOME_ID);
 		when(podcastDao.getPodcastById(SOME_ID)).thenReturn(podcastEntity);		

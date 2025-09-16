@@ -21,11 +21,8 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 public class PodcastServiceImpl implements PodcastService {
 
+	@Autowired
 	PodcastDao podcastDao;
-
-	public PodcastServiceImpl(PodcastDao podcastDao) {
-		this.podcastDao = podcastDao;
-	}
 
 	/********************* Create related methods implementation ***********************/
 	@Transactional
@@ -70,7 +67,7 @@ public class PodcastServiceImpl implements PodcastService {
 	public List<Podcast> getPodcasts(String orderByInsertionDate, Integer numberDaysToLookBack) throws AppException {
 		
 		//verify optional parameter numberDaysToLookBack first 
-		if(numberDaysToLookBack!=null){
+		if(numberDaysToLookBack != null){
 			List<PodcastEntity> recentPodcasts = podcastDao.getRecentPodcasts(numberDaysToLookBack);			
 			return getPodcastsFromEntities(recentPodcasts);			
 		}
@@ -104,7 +101,7 @@ public class PodcastServiceImpl implements PodcastService {
 
 	@WithSpan
 	private List<Podcast> getPodcastsFromEntities(List<PodcastEntity> podcastEntities) {
-		List<Podcast> response = new ArrayList<Podcast>();
+		List<Podcast> response = new ArrayList<>();
 		for(PodcastEntity podcastEntity : podcastEntities){
 			response.add(new Podcast(podcastEntity));					
 		}
@@ -211,6 +208,10 @@ public class PodcastServiceImpl implements PodcastService {
 	@Override
 	public void generateCustomReasonPhraseException() throws CustomReasonPhraseException {		
 		throw new CustomReasonPhraseException(4000, "message attached to the Custom Reason Phrase Exception");		
+	}
+
+	public void setPodcastDao(PodcastDao podcastDao) {
+		this.podcastDao = podcastDao;
 	}
 		
 }

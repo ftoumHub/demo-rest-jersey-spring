@@ -31,11 +31,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 @Path("/podcasts")
 public class PodcastsResource {
 
-	private final PodcastService podcastService;
-
-	public PodcastsResource(PodcastService podcastService) {
-		this.podcastService = podcastService;
-	}
+	@Autowired
+	private PodcastService podcastService;
 
 	/*
 	 * *********************************** CREATE ***********************************
@@ -242,4 +239,9 @@ public class PodcastsResource {
 		return Response.status(Response.Status.NO_CONTENT)// 204
 				.entity("All podcasts have been successfully removed").build();
 	}
+
+	public void setpodcastService(PodcastService podcastService) {
+		this.podcastService = podcastService;
+	}
+
 }
