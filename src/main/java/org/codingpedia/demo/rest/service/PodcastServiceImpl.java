@@ -17,8 +17,6 @@ import org.codingpedia.demo.rest.resource.podcast.Podcast;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.opentelemetry.instrumentation.annotations.WithSpan;
-
 public class PodcastServiceImpl implements PodcastService {
 
 	@Autowired
@@ -63,7 +61,6 @@ public class PodcastServiceImpl implements PodcastService {
 	
 	 // ******************** Read related methods implementation **********************
 	//@Transactional
-	@WithSpan
 	public List<Podcast> getPodcasts(String orderByInsertionDate, Integer numberDaysToLookBack) throws AppException {
 		
 		//verify optional parameter numberDaysToLookBack first 
@@ -80,7 +77,6 @@ public class PodcastServiceImpl implements PodcastService {
 		return getPodcastsFromEntities(podcasts);
 	}
 
-	@WithSpan
 	private boolean isOrderByInsertionDateParameterValid(String orderByInsertionDate) {
 		return orderByInsertionDate!=null 
 				&& !("ASC".equalsIgnoreCase(orderByInsertionDate) || "DESC".equalsIgnoreCase(orderByInsertionDate));
@@ -99,7 +95,6 @@ public class PodcastServiceImpl implements PodcastService {
 		return new Podcast(podcastDao.getPodcastById(id));
 	}
 
-	@WithSpan
 	private List<Podcast> getPodcastsFromEntities(List<PodcastEntity> podcastEntities) {
 		List<Podcast> response = new ArrayList<>();
 		for(PodcastEntity podcastEntity : podcastEntities){
@@ -145,7 +140,6 @@ public class PodcastServiceImpl implements PodcastService {
 	 * @param podcast
 	 * @return
 	 */
-	@WithSpan
 	private boolean isFullUpdate(Podcast podcast) {
 		return podcast.getId() == null
 				|| podcast.getFeed() == null
@@ -189,7 +183,6 @@ public class PodcastServiceImpl implements PodcastService {
 		podcastDao.updatePodcast(new PodcastEntity(verifyPodcastExistenceById));
 	}
 
-	@WithSpan
 	private void copyPartialProperties(Podcast verifyPodcastExistenceById, Podcast podcast) {
 		
 		BeanUtilsBean notNull=new NullAwareBeanUtilsBean();

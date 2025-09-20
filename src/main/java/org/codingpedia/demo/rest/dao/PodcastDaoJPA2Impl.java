@@ -13,15 +13,11 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
-import io.opentelemetry.instrumentation.annotations.WithSpan;
-
-
 public class PodcastDaoJPA2Impl implements PodcastDao {
 
 	@PersistenceContext(unitName="demoRestPersistence")
 	private EntityManager entityManager;
 
-	@WithSpan
 	public List<PodcastEntity> getPodcasts(String orderByInsertionDate) {
 		String sqlString = null;
 		if(orderByInsertionDate != null){

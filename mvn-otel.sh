@@ -31,7 +31,8 @@ export OTEL_TRACES_SAMPLER="traceidratio"
 export OTEL_TRACES_SAMPLER_ARG="1.0"
 export OTEL_EXPORTER_OTLP_COMPRESSION="gzip"
 export OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
-export OTEL_INSTRUMENTATION_METHODS_INCLUDE="javax.persistence.EntityManager[createQuery]"
+#export OTEL_INSTRUMENTATION_METHODS_INCLUDE="javax.persistence.EntityManager[createQuery];org.codingpedia.demo.rest.filters.LoggingResponseFilter[filter]"
+export OTEL_INSTRUMENTATION_METHODS_INCLUDE="$(cat /mnt/c/dev/swm/otel-methods-include-gen/result.txt)"
 
 export JAVA_HOME=/home/ftoum/.sdkman/candidates/java/8.0.265-open
 export PATH=$JAVA_HOME/bin:$PATH
@@ -43,7 +44,7 @@ echo "=== Lancement de Jetty avec OpenTelemetry ==="
 echo "Agent : $OTEL_AGENT_JAR"
 echo "Service : $OTEL_SERVICE_NAME"
 echo "OTLP Endpoint : $OTEL_EXPORTER_OTLP_ENDPOINT"
+echo "OTEL_INSTRUMENTATION_METHODS_INCLUDE : $OTEL_INSTRUMENTATION_METHODS_INCLUDE"
 
-# Lancer Jetty
+# Lancer Jetty : mvn jetty:run
 /mnt/c/Tools/apache-maven-3.8.8/bin/mvn jetty:run
-#mvn jetty:run
