@@ -46,25 +46,20 @@ public class PodcastEntity implements Serializable {
 	
 	public PodcastEntity(String title, String linkOnPodcastpedia, String feed,
 			String description) {
-		
 		this.title = title;
 		this.linkOnPodcastpedia = linkOnPodcastpedia;
 		this.feed = feed;
 		this.description = description;
-		
 	}
 	
 	public PodcastEntity(Podcast podcast){
 		try {
 			BeanUtils.copyProperties(this, podcast);
-		} catch (IllegalAccessException e) {
+		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
+		}
+    }
 		
 	public String getTitle() {
 		return title;

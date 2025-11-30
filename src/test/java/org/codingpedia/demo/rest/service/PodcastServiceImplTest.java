@@ -3,6 +3,7 @@ package org.codingpedia.demo.rest.service;
 import static org.mockito.Mockito.*;
 
 import org.codingpedia.demo.rest.dao.PodcastDao;
+import org.codingpedia.demo.rest.dao.PodcastDaoJPA2Impl;
 import org.codingpedia.demo.rest.dao.PodcastEntity;
 import org.codingpedia.demo.rest.errorhandling.AppException;
 import org.codingpedia.demo.rest.resource.podcast.Podcast;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -28,14 +30,12 @@ public class PodcastServiceImplTest {
 	public ExpectedException exception = ExpectedException.none();	
 
 	PodcastServiceImpl sut;//system under test
-	
-	@Mock
-	PodcastDao podcastDao;
+
+	PodcastDao podcastDao = Mockito.mock(PodcastDaoJPA2Impl.class);
 	
 	@Before
 	public void setUp() throws Exception {		
-		sut = new PodcastServiceImpl();
-		sut.setPodcastDao(podcastDao);
+		sut = new PodcastServiceImpl(podcastDao);
 	}
 
 	@Test

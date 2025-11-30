@@ -19,7 +19,6 @@ import javax.ws.rs.core.Response;
 
 import org.codingpedia.demo.rest.errorhandling.AppException;
 import org.codingpedia.demo.rest.service.PodcastService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -29,8 +28,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 @Path("/podcasts")
 public class PodcastsResource {
 
-	@Autowired
-	private PodcastService podcastService;
+	private final PodcastService podcastService;
+
+	public PodcastsResource(PodcastService podcastService) {
+		this.podcastService = podcastService;
+	}
 
 	/*
 	 * *********************************** CREATE ***********************************
@@ -39,10 +41,6 @@ public class PodcastsResource {
 	/**
 	 * Adds a new resource (podcast) from the given json format (at least title
 	 * and feed elements are required at the DB level)
-	 * 
-	 * @param podcast
-	 * @return
-	 * @throws AppException
 	 */
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -69,7 +67,7 @@ public class PodcastsResource {
 	 */
 	@POST
 	@Consumes({ MediaType.APPLICATION_FORM_URLENCODED })
-	@Produces({ MediaType.TEXT_HTML })
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createPodcastFromApplicationFormURLencoded(
 			@FormParam("title") String title,
 			@FormParam("linkOnPodcastpedia") String linkOnPodcastpedia,
@@ -91,10 +89,6 @@ public class PodcastsResource {
 	/**
 	 * A list of resources (here podcasts) provided in json format will be added
 	 * to the database.
-	 * 
-	 * @param podcasts
-	 * @return
-	 * @throws AppException
 	 */
 	@POST
 	@Path("list")
@@ -119,17 +113,19 @@ public class PodcastsResource {
 	 */
 	@GET
 	//@Compress //can be used only if you want to SELECTIVELY enable compression at the method level. By using the EncodingFilter everything is compressed now. 
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON })
 	public List<Podcast> getPodcasts(
 			@QueryParam("orderByInsertionDate") String orderByInsertionDate,
 			@QueryParam("numberDaysToLookBack") Integer numberDaysToLookBack)
             throws AppException {
+		System.out.println("==> PodcastsResource.getPodcasts");
+		System.out.println(podcastService);
 		return podcastService.getPodcasts(orderByInsertionDate, numberDaysToLookBack);
 	}
 
 	@GET
 	@Path("{id}")
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON })
 	public Response getPodcastById(@PathParam("id") Long id, @QueryParam("detailed") boolean detailed)
 			throws IOException,	AppException {
 		Podcast podcastById = podcastService.getPodcastById(id);
@@ -163,11 +159,6 @@ public class PodcastsResource {
 	 * there is no resource yet at the specified location, then a podcast
 	 * creation is executed and if there is then the resource will be full
 	 * updated.
-	 * 
-	 * @param id
-	 * @param podcast
-	 * @return
-	 * @throws AppException
 	 */
 	@PUT
 	@Path("{id}")
@@ -212,7 +203,6 @@ public class PodcastsResource {
 		podcastService.updatePartiallyPodcast(podcast);
 		return Response
 				.status(Response.Status.OK)
-				// 200
 				.entity("The podcast you specified has been successfully updated")
 				.build();
 	}
@@ -236,9 +226,4 @@ public class PodcastsResource {
 		return Response.status(Response.Status.NO_CONTENT)// 204
 				.entity("All podcasts have been successfully removed").build();
 	}
-
-	public void setpodcastService(PodcastService podcastService) {
-		this.podcastService = podcastService;
-	}
-
 }

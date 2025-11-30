@@ -14,7 +14,8 @@ public class CustomReasonPhraseExceptionMockResource {
 	private PodcastService podcastService;
 	
 	@GET
-	public void testReasonChangedInResponse() throws CustomReasonPhraseException{
+	public String testReasonChangedInResponse() throws CustomReasonPhraseException{
 		podcastService.generateCustomReasonPhraseException();
+		return "";
 	}
 }

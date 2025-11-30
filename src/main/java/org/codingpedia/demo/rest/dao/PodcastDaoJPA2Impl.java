@@ -19,7 +19,7 @@ public class PodcastDaoJPA2Impl implements PodcastDao {
 	private EntityManager entityManager;
 
 	public List<PodcastEntity> getPodcasts(String orderByInsertionDate) {
-		String sqlString = null;
+		String sqlString;
 		if(orderByInsertionDate != null){
 			sqlString = "SELECT p FROM PodcastEntity p ORDER BY p.insertionDate " + orderByInsertionDate;
 		} else {

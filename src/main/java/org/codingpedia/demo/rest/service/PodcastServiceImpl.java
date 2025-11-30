@@ -14,13 +14,15 @@ import org.codingpedia.demo.rest.errorhandling.CustomReasonPhraseException;
 import org.codingpedia.demo.rest.filters.AppConstants;
 import org.codingpedia.demo.rest.helpers.NullAwareBeanUtilsBean;
 import org.codingpedia.demo.rest.resource.podcast.Podcast;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 public class PodcastServiceImpl implements PodcastService {
 
-	@Autowired
-	PodcastDao podcastDao;
+	private final PodcastDao podcastDao;
+
+	public PodcastServiceImpl(PodcastDao podcastDao) {
+		this.podcastDao = podcastDao;
+	}
 
 	/********************* Create related methods implementation ***********************/
 	@Transactional
@@ -32,7 +34,9 @@ public class PodcastServiceImpl implements PodcastService {
 		//verify existence of resource in the db (feed must be unique)
 		PodcastEntity podcastByFeed = podcastDao.getPodcastByFeed(podcast.getFeed());
 		if(podcastByFeed != null){
-			throw new AppException(Response.Status.CONFLICT.getStatusCode(), 409, "Podcast with feed already existing in the database with the id " + podcastByFeed.getId(),
+			throw new AppException(
+					Response.Status.CONFLICT.getStatusCode(),
+					409, "Podcast with feed already existing in the database with the id " + podcastByFeed.getId(),
 					"Please verify that the feed and title are properly generated", AppConstants.BLOG_POST_URL);
 		}
 		
@@ -70,7 +74,10 @@ public class PodcastServiceImpl implements PodcastService {
 		}
 		
 		if(isOrderByInsertionDateParameterValid(orderByInsertionDate)){
-			throw new AppException(Response.Status.BAD_REQUEST.getStatusCode(), 400, "Please set either ASC or DESC for the orderByInsertionDate parameter", null , AppConstants.BLOG_POST_URL);
+			throw new AppException(
+					Response.Status.BAD_REQUEST.getStatusCode(),
+					400,
+					"Please set either ASC or DESC for the orderByInsertionDate parameter", null , AppConstants.BLOG_POST_URL);
 		}			
 		List<PodcastEntity> podcasts = podcastDao.getPodcasts(orderByInsertionDate);
 		
@@ -136,9 +143,6 @@ public class PodcastServiceImpl implements PodcastService {
 
 	/**
 	 * Verifies the "completeness" of podcast resource sent over the wire
-	 * 
-	 * @param podcast
-	 * @return
 	 */
 	private boolean isFullUpdate(Podcast podcast) {
 		return podcast.getId() == null
@@ -201,10 +205,6 @@ public class PodcastServiceImpl implements PodcastService {
 	@Override
 	public void generateCustomReasonPhraseException() throws CustomReasonPhraseException {		
 		throw new CustomReasonPhraseException(4000, "message attached to the Custom Reason Phrase Exception");		
-	}
-
-	public void setPodcastDao(PodcastDao podcastDao) {
-		this.podcastDao = podcastDao;
 	}
 		
 }

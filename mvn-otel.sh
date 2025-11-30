@@ -34,8 +34,7 @@ export OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
 #export OTEL_INSTRUMENTATION_METHODS_INCLUDE="javax.persistence.EntityManager[createQuery];org.codingpedia.demo.rest.filters.LoggingResponseFilter[filter]"
 export OTEL_INSTRUMENTATION_METHODS_INCLUDE="$(cat /mnt/c/dev/swm/otel-methods-include-gen/result.txt)"
 
-export JAVA_HOME=/home/ftoum/.sdkman/candidates/java/8.0.265-open
-export PATH=$JAVA_HOME/bin:$PATH
+export JAVA_HOME=/home/ftoum/.sdkman/candidates/java/8.0.265-open && export PATH=$JAVA_HOME/bin:$PATH
 
 # Ajout de l’agent JVM via MAVEN_OPTS
 export MAVEN_OPTS="-javaagent:${OTEL_AGENT_JAR} ${MAVEN_OPTS}"

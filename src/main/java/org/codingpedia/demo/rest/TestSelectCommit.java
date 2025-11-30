@@ -13,7 +13,7 @@ public class TestSelectCommit {
     public static void main(String[] args) throws Exception {
         // On charge le contexte Spring
         ClassPathXmlApplicationContext ctx =
-                new ClassPathXmlApplicationContext("/spring/applicationContext.xml");
+                new ClassPathXmlApplicationContext("/spring/application-context.xml");
 
         DataSource ds = ctx.getBean("restDemoDS", DataSource.class);
 

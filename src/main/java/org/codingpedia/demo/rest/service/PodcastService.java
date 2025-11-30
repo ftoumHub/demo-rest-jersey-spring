@@ -1,6 +1,5 @@
 package org.codingpedia.demo.rest.service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.codingpedia.demo.rest.errorhandling.AppException;
@@ -35,10 +34,6 @@ public interface PodcastService {
 	
 	/**
 	 * Returns a podcast given its id
-	 * 
-	 * @param id
-	 * @return
-	 * @throws AppException 
 	 */
 	Podcast getPodcastById(Long id) throws AppException;
 	

@@ -31,4 +31,10 @@
 	<!-- c3p0 -->
 	<logger name="com.mchange.v2.c3p0" level="INFO"/>
 	<logger name="com.mchange.v2.resourcepool" level="INFO"/>
+
+	<!-- Spring -->
+	<logger name="org.springframework.transaction" level="DEBUG"/>
+	<logger name="org.springframework.orm.jpa" level="DEBUG"/>
+	<logger name="org.springframework.transaction.interceptor" level="TRACE"/>
+	<logger name="org.springframework.transaction.support" level="TRACE"/>
 </configuration> 
